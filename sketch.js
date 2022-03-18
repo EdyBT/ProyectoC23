@@ -75,15 +75,21 @@ function draw() {
   packageSprite.y= packageBody.position.y 
 
   
-  drawSprites();
-  
-  if(keyCode === LEFT_ARROW) {
-	  helicopterSprite.x=helicopterSprite.x-20;
-  }
+  drawSprites(); 
+}
 
-  if(keyCode === DOWN_ARROW) {
-	  Matter.Body.setStatic(packageBody,flase);
-	  Matter.Body.traslate(packageBody,{x:-20,y:0});	
-  }
- 
+
+//Función que determina cual es la tecla que se presiona
+function keyPressed() 
+{	
+    if(keyCode === LEFT_ARROW){
+           helicopterSprite.x = helicopterSprite.x - 20;
+		   Matter.Body.translate(packageBody, {x:-20,y:0})
+	}
+
+	if (keyCode === DOWN_ARROW) {
+		Matter.Body.setStatic(starBody,false); 
+		//Matter.Body.isStatic=false;
+		packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0.4, isStatic:false});
+	}
 }
