@@ -68,28 +68,32 @@ function setup() {
 
 
 function draw() {
-  rectMode(CENTER);
-  background(0);
+	rectMode(CENTER);
+	background(0);
+
+	textSize(20);
+	fill(255,255,255);
+  	text("Presiona tecla de flecha hacia abajo, para soltar el paquete",200,100);
  
-  packageSprite.x= packageBody.position.x 
-  packageSprite.y= packageBody.position.y 
+	packageSprite.x= packageBody.position.x 
+  	packageSprite.y= packageBody.position.y 
 
-  
-  drawSprites(); 
-}
-
-
-//Función que determina cual es la tecla que se presiona
-function keyPressed() 
-{	
-    if(keyCode === LEFT_ARROW){
-           helicopterSprite.x = helicopterSprite.x - 20;
-		   Matter.Body.translate(packageBody, {x:-20,y:0})
+	//Para mover el helicóptero izquierda. Cuando cae el paquete, este se mueve junto con el helicóptero
+	if(keyCode === LEFT_ARROW){
+		helicopterSprite.x=helicopterSprite.x-20;
+		Matter.Body.translate(packageBody, {x:-20,y:0})
 	}
 
-	if (keyCode === DOWN_ARROW) {
-		Matter.Body.setStatic(starBody,false); 
-		//Matter.Body.isStatic=false;
-		packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0.4, isStatic:false});
+	//Para mover el helicóptero derecha. Cuando cae el paquete, este se mueve junto con el helicóptero
+	if(keyCode === RIGHT_ARROW){
+		helicopterSprite.x=helicopterSprite.x+20;
+		Matter.Body.translate(packageBody, {x:+20,y:0})
 	}
+
+	//Al presionar la tecla de flecha hacia abajo suelta el paquete.
+  	if(keyCode === DOWN_ARROW){
+	  	Matter.Body.setStatic(packageBody,false);
+  	}
+
+	drawSprites();
 }
